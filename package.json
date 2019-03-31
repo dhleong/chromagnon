@@ -1,5 +1,5 @@
 {
-  "name": "chromatic",
+  "name": "chromagnon",
   "version": "1.0.0",
   "description": "Extract data from Chrome",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dhleong/babbling.git"
+    "url": "git+https://github.com/dhleong/chromagnon.git"
   },
   "keywords": [
     "chrome"
@@ -20,9 +20,9 @@
   "author": "Daniel Leong",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dhleong/babbling/issues"
+    "url": "https://github.com/dhleong/chromagnon/issues"
   },
-  "homepage": "https://github.com/dhleong/babbling#readme",
+  "homepage": "https://github.com/dhleong/chromagnon#readme",
   "dependencies": {
     "better-sqlite3": "^5.4.0",
     "keytar": "^4.4.1",
