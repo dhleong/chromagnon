@@ -1,9 +1,7 @@
-import fs from "fs";
 import os from "os";
 import path from "path";
-import util from "util";
 
-const pathExists = util.promisify(fs.exists);
+import { pathExists } from "./util";
 
 const paths: { [p: string]: string[] } = {
     win32: [

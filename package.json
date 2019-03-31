@@ -8,6 +8,11 @@
     "/dist"
   ],
   "scripts": {
+    "build": "tsc -p .",
+    "check": "npm run lint && npm run build",
+    "lint": "tslint -p .",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,12 +31,16 @@
   "dependencies": {
     "better-sqlite3": "^5.4.0",
     "keytar": "^4.4.1",
+    "leveldown": "^5.0.0",
+    "levelup": "^4.0.1",
     "tldjs": "^2.3.1",
     "tough-cookie": "^3.0.1"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^5.2.3",
     "@types/keytar": "^4.4.0",
+    "@types/leveldown": "^4.0.0",
+    "@types/levelup": "^3.1.0",
     "@types/node": "^11.12.0",
     "@types/tldjs": "^2.3.0",
     "@types/tough-cookie": "^2.3.5",
