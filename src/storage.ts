@@ -109,6 +109,7 @@ export class LocalStorageExtractor {
         );
     }
 
+    /** @internal */
     constructor(
         private dbPath: string,
         private openDb: () => Promise<LevelUp<LevelDown>>,

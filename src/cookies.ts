@@ -33,6 +33,7 @@ export class CookieExtractor {
 
     private cachedKey: Buffer | undefined;
 
+    /** @internal */
     constructor(private db: Database) { }
 
     public close() {

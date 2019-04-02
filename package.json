@@ -1,6 +1,6 @@
 {
   "name": "chromagnon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extract data from Chrome",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
