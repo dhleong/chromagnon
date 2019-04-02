@@ -56,7 +56,7 @@ export class CookieExtractor {
     public async *query(url: string) {
         const domain = getDomain(url);
         const { host, path, protocol } = urllib.parse(url);
-        const requestedSecure = protocol === "https";
+        const requestedSecure = protocol === "https:";
 
         // ORDER BY tries to match sort order specified in
         // RFC 6265 - Section 5.4, step 2
