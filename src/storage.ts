@@ -2,7 +2,6 @@ import fs from "fs";
 import pathlib from "path";
 import urllib from "url";
 
-import sqlite3, { Database } from "better-sqlite3";
 import leveldown, { Bytes, LevelDown, LevelDownIterator } from "leveldown";
 import levelup, { LevelUp } from "levelup";
 
@@ -10,25 +9,6 @@ import { locateChromeRoot } from "./locate";
 import { pathExists } from "./util";
 
 const hostKeySeparator = "\u0000\u0001";
-
-/**
- * NOTE: this closes the db automatically. This is a weird idiom since
- * we're being given the db, but it simplifies the code
- */
-async function *readAllFromDb(db: Database) {
-    try {
-        const rows = db.prepare(`
-            SELECT key, value
-            FROM ItemTable
-        `).iterate();
-
-        for (const row of rows) {
-            yield row;
-        }
-    } finally {
-        db.close();
-    }
-}
 
 function keyFromUrl(url: string, key?: string, separator: string = hostKeySeparator) {
     const suffix = key
@@ -136,15 +116,13 @@ export class LocalStorageExtractor {
 
         try {
 
-            // the @types don't include this for some reason...
-            const stream = (db as any).iterator({
+            // the @types are more vague about this return value for some reason:
+            const stream = db.iterator({
                 gte: start,
                 lte: end,
             }) as LevelDownIterator;
 
-            for await (const entry of asyncIterable(stream)) {
-                const { key, value } = entry as any as { key: Bytes, value: Bytes };
-
+            for await (const { key, value } of asyncIterable(stream)) {
                 const [ , actualKey ] = key.toString().split(hostKeySeparator);
 
                 yield {
