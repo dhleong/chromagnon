@@ -29,21 +29,20 @@
   },
   "homepage": "https://github.com/dhleong/chromagnon#readme",
   "dependencies": {
-    "better-sqlite3": "^5.4.0",
-    "keytar": "^4.4.1",
-    "leveldown": "^5.0.0",
-    "levelup": "^4.0.1",
+    "better-sqlite3": "^7.1.0",
+    "keytar": "^6.0.1",
+    "leveldown": "^5.6.0",
+    "levelup": "^4.4.0",
     "tldjs": "^2.3.1",
-    "tough-cookie": "^3.0.1"
+    "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^5.2.3",
-    "@types/keytar": "^4.4.0",
-    "@types/leveldown": "^4.0.0",
-    "@types/levelup": "^3.1.0",
-    "@types/node": "^11.12.0",
+    "@types/better-sqlite3": "^5.4.0",
+    "@types/leveldown": "^4.0.2",
+    "@types/levelup": "^4.3.0",
+    "@types/node": "^14.0.14",
     "@types/tldjs": "^2.3.0",
-    "@types/tough-cookie": "^2.3.5",
-    "typescript": "^3.3.4000"
+    "@types/tough-cookie": "^4.0.0",
+    "typescript": "^3.9.5"
   }
 }
