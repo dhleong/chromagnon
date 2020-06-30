@@ -1,3 +1,4 @@
+import { execFile } from "child_process";
 import crypto from "crypto";
 import os from "os";
 import pathlib from "path";
@@ -5,7 +6,7 @@ import urllib from "url";
 import util from "util";
 
 import connect, { Database } from "better-sqlite3";
-import { getPassword } from "keytar";
+import keytar from "keytar";
 import { getDomain } from "tldjs";
 import { domainMatch, pathMatch } from "tough-cookie";
 
@@ -122,7 +123,7 @@ export class CookieExtractor {
 
         let chromePassword = "peanuts";
         if (os.platform() === "darwin") {
-            const fetched = await getPassword("Chrome Safe Storage", "Chrome");
+            const fetched = await this.getPassword("Chrome Safe Storage", "Chrome");
             if (!fetched) {
                 throw new Error("Not granted access to cookies");
             }
@@ -136,6 +137,45 @@ export class CookieExtractor {
 
         this.cachedKey = decrypted;
         return decrypted;
+    }
+
+    private async getPassword(service: string, account: string) {
+        try {
+            return await keytar.getPassword(service, account);
+        } catch (e) {
+            if (
+                os.platform() === "darwin"
+                && e.message
+                && e.message === "The user name or passphrase you entered is not correct."
+            ) {
+                // this can happen on macos sometimes for some reason...
+                return this.findPasswordMacosFallback(service, account);
+            }
+
+            throw e;
+        }
+    }
+
+    private async findPasswordMacosFallback(
+        service: string,
+        account: string,
+    ) {
+        return new Promise<string>((resolve, reject) => {
+            execFile("security", [
+                "find-generic-password",
+                "-s", service,
+                "-a", account,
+                "-g",
+            ], (err, _, stderr) => {
+                if (err) reject(err);
+
+                const str = stderr.toString();
+                const m = str.match(/password: "([^"]+)"/);
+
+                if (m) resolve(m[1]);
+                else reject(new Error("Couldn't find password"));
+            });
+        });
     }
 }
 
