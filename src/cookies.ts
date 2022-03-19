@@ -145,6 +145,7 @@ export class CookieExtractor {
         } catch (e) {
             if (
                 os.platform() === "darwin"
+                && e instanceof Error
                 && e.message
                 && e.message === "The user name or passphrase you entered is not correct."
             ) {

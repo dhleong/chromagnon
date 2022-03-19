@@ -41,7 +41,7 @@ async function *asyncIterable(
                 iterator.next((err, key, value) => {
                     if (err) return reject(err);
                     if (key === undefined && value === undefined) {
-                        resolve();
+                        resolve(undefined);
                         return;
                     }
                     resolve({key, value});
@@ -55,7 +55,7 @@ async function *asyncIterable(
             yield next;
         }
     } finally {
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
             iterator.end(err => {
                 if (err) reject(err);
                 else resolve();
