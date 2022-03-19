@@ -20,7 +20,7 @@ except ImportError:
 #
 
 notes = File(".last-release-notes")
-latestTag = git.Tag.latest()
+latestTag = git.Tag.latest(branch = "main")
 
 def formatIssue(issue):
     return "- {title} (#{number})\n".format(
